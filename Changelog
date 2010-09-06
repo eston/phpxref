@@ -1,0 +1,251 @@
+0.7 - 2/January/2007
+    + Parse static and final methods correctly
+
+    + Add support for PHP Interfaces
+    
+	+ Ignore functions defined in HTML comments (<!-- -->)
+
+    + Compress plain text view of source files if COMPRESS=1 in the cfg file
+
+    + Added new config option LINK_URI - Turning this on links email addresses
+      and URLs used in documentation @tags
+
+    + Added new config option EXPLORE_SOURCE - Setting this to 1 makes
+      links in the file explorer open the php source, rather than the summary page
+
+    + Added support for changing the content-type used on pages to support other
+      character sets - Thanks to uno@venus.dti.np.jp - Configured using the
+      CHARSET config parameter
+
+    + Fix javascript bug causing rollover links to function, class and constant
+      directions to link to an invalid url
+
+    + Added a project stats page that contains the same information printed at the
+      end of a phpxref run (_stats.html) - Linked from the project summary pages
+
+
+0.6 - 25/October/2004
+    + Fixed "file exists" error that occured with Windows ME
+
+    + Added support for some PHP5-isms, including:
+      * class Foo implements ...
+      * public/private/protected functions
+      Note: phpxref doesn't do anything clever with this extra
+      information, it just allows the class/method to be detected
+      correctly.
+      There's no real support for interfaces as yet.
+
+    + Made sure functions/methods beginning/containing underscores
+      are indexed
+
+    + Displays class and function names with cOrReCt CaSe in the file
+      summary page.
+
+    + Couple more fixes with the Windows builds
+
+
+0.5 - 16/March/2004
+    + Added support for cross referencing constants
+
+    + Added a search/reference history, accessible by clicking the 
+      'Search History' link on the search popup that keeps track of 
+      functions, variables, constants, classes and tables that have 
+      been recently visited.
+
+    + Added a new css class for php function names, along with a 
+      new mouseover popup for them
+
+    + A cross reference of files included or required by other files is now
+      linked from the file summary page 
+      (eg. "Included or required: 14 times" links to a page showing the
+      referencing pages)
+
+    + Added variable name highlighting in the source view:  Mouse over a
+      variable name and all variables in the file with the same same will be
+      highlighted. (note: requires an update to the sample_header.html file)
+
+    + Added a link to the original plain text version of the source file from
+      the source view page.
+
+    + Fixed the annoying 'root is not defined' JS error that showed up in IE
+
+    + Fixed parsing of @param style comments so that the DOC_TAG
+      configuration option now works.  Turned on reporting of 
+      $author, @param, @return and @returns tags by default in 
+      the phpxref.cfg file.
+
+    + Added DOC_FILE_TAG option to phpxref.cfg -- Setting this dictates
+      which @param tags are used for the actual file description; 
+      see the updated phpxref.cfg file for more information.
+
+    + Opening a link that jumps to a specific source line in a new
+      browser window/tab now jumps correctly to the right line, even when 
+      the framed explorer is turned on.
+
+    + Changed parsing procedure so that reference counts are known by the time 
+      the output pass has started; extra information presented on the popups
+      as a result
+    
+    + Entries that appear to be a function or class reference, but for which
+      no definition can be found are no longer linked as such.  Dramatically
+      cuts down the number of false links
+
+    + Javascript cleanup/reshuffle
+
+    + Fixed end of line comment parsing
+
+    + Fixed bug with function parsing so that function definitions with the
+      argument list's opening bracket on the next line are now recognized
+      correctly
+    
+    + Class and function definitions now link to the start of any comment
+      block linked to the entry, rather than the entry itself.
+
+    + Updated the PHP function list - This set is a merge of the existing php4
+      functionlist with a list extracted from the php 5.0.0b4 source
+
+    + Various fixes to help with Internet Explorer's shortcomings
+
+
+v0.4.1 - 8/December/2003
+    + Classes referenced by sublasses via the 'extends' keyword are
+      now cross referenced.
+
+    + Class variables are now cross referenced to some degree
+      (the parser has no way to know what class $foo->bar actually
+      belongs to)
+
+    + Added 'print' links to the source and summary file views
+      and added a print CSS file to improve the formatting of 
+      printed files.  Needs a reasonably modern browser to work well.
+
+    + Function definitions with a space between the function name
+      and the opening bracket are now indexed.
+
+    + Miscellaneous comment parsing fixes.
+
+    + Added a rollover popup for include and require statements
+      so that the user may quickly choose whether to jump to the
+      source of the referenced file, or the summary view.
+
+
+v0.4 - 2/September/2003
+    + Fixed a bug that prevented function definitions beginning
+      with an ampersand from showing up in the page detail
+
+    + Added a PROJECT variable to the configuration file to hold the short
+      name of the project being cross referenced.  Can be inserted into the
+      header or footer templates using __PROJECT__ (see updated samples)
+
+    + Added a __TITLE__ variable for use in the header template
+
+    + Added a much more powerful directory-explorer for javascript enabled
+      browsers
+
+    + Added COMPRESS option to the configuration file.  When enabled
+      output files will be compressed and named with a .gz extension.
+      Most browsers will have no problem rendering such files when served
+      from a correctly configured web server.
+      Requires the IO::Zlib perl module to be installed.
+
+    + Wrap source listings in a pre block instead of using &nbsp;
+      for consistent spacing
+
+    + Replaced all the progress dots with percentages
+
+    + Added mouseover popups for functions and classes to the source view
+      allowing for quick access to the source definition of each
+
+    + Improved the layout of the file summary pages and directory listing
+      pages.  This involved a few changes that affected the css file
+      along with the header and footer
+
+    + Framed view is now the default
+
+    + Pushed javascript routines out into a separate file
+
+    + CVS style $Id: lines are now ignored for the purposes of the 
+      short description for files
+
+    + Filenames are treated case-insensitively now on operating systems
+      using case insensitve filesystems (eg. Windows).
+      This affects settings such as BAD_DIRNAMES, etc
+
+    + Various other minor fixes and additions
+
+v0.3.0 - 25/June/2003
+    + Added cross referencing of PHP classes
+
+    + Added support for PHPDoc style comments and tags, eg.:
+      /**
+      * Function description
+      * @author Gareth
+      */
+
+    + Updated HTML layout to use a stylesheet and improved default layout
+      Old configuration options relating to HTML colour are no longer used
+      (JS_BG, JS_FG, INFO_BG, FILENAME_BG, COL_COMMENTS, COL_LINENUM)
+
+    + Added basic syntax colouring
+
+    + Improved the handling of require/include references - Constants and 
+      variables prepended to require statements are now parsed and can
+      be specified in the configuration file
+      eg. require(THEME_BASE.'frontpage.php')
+
+    + Added support for cross referencing all references to other files
+      ie. not just those referenced in require/include blocks
+      (see FULLXREF setting)
+
+    + Improved support for running under Windows (tested with activestate perl
+      5.6 and TinyPerl 2.0)
+
+    + Updated documentation
+
+    + Updated the PHP4 functionlist
+
+    + Added some stats to the output summary
+
+    + Filenames ending with a tilde are now always ignored
+
+v0.2.1 - 08/May/2001
+	+ Fixed a bug so that the directory crawl now follows symlinks okay
+
+	+ Added a little style to the directory tree frame
+
+	+ Updated the parser so that the '////' start of comments line may
+	  have trailing spaces
+
+v0.2 - 30/April/2001
+	+ Added include_once and require_once as aliases for include and require
+
+	+ Added the ability to associate author names with php files using
+	  a '// filename.php - author: jsmith'
+	  syntax - courtesy of Gottfried Szing
+
+	+ Added the looking up of SQL table descriptions referenced in
+	  inline comments directly from a MySQL database; added some
+	  configuration options to make this work - see the sample.cfg file
+	  for details.  Courtesy of Gottfried Szing.
+
+	+ Fixed a bug with BAD_EXT where extensions such as .php~ 
+	  (with the trailing tilde) wouldn't be matched
+
+	+ Added support for relative pathnames used with require() or include()
+	  so things like:
+	  require("../file.php")
+	  should now resolve okay if you configure INCLUDEPATH correctly
+
+	+ Fixed a few typos
+
+v0.1.2 - 27/July/2000
+	+ Updated the parsing/handling of require and include statements
+	to handle more formats.. resolve_require() still needs to
+	be improved though (ie. so it handles '../dir/file.php' cases)
+
+	+ Updated the sample.cfg file so that INCLUDEPATH references
+	the current directory.
+
+
+v0.1.1 - 17/July/2000
+	+ Initial release

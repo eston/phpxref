@@ -1,0 +1,169 @@
+<html>
+<head>
+    <title>PHPXref 0.7 Instructions</title>
+    <link href="sample.css" type="text/css">
+</head>
+<body>
+    <h1>PHPXref 0.6</h1>
+    <p><i>&copy; Gareth Watts &lt;gareth@omnipotent.net&gt; 2000-2007</i></p>
+
+    <h2>Contents</h2>
+    <ul>
+      <li><a href="#synopsis">Synopsis</a></li>
+      <li><a href="#quickstart">Quickstart</a></li>
+      <li><a href="#docs">Documentating your scripts</a></li>
+      <li><a href="#windows">Notes for Windows users</a></li>
+      <li><a href="#misc">Miscellaneous</a></li>
+    </ul>
+    
+
+    <h2><a name="#synopsis">Synopsis</a></h2>
+    <p>
+    PHPXref parses a set of PHP files and extracts suitably formatted comments 
+    placed in the files to generate a cross-referenced set of HTML documentation 
+    that you can view using any web browser, with or without a web server.
+    </p>
+
+    <h3>Features:</h3>
+    <ul>
+        <li>Provides an easy means of documenting your PHP scripts whilst you code.</li>
+        <li>Cross-references classes, functions, variables, constants, include() 
+            and require()'d files and SQL table usage.</li>
+        <li>Produces a complete class, function, variable, constant and (optionally) 
+            a database table list.</li>
+        <li>Generates plain HTML output that can be viewed with any web browser and
+            downloaded onto the local machine for quick reference.</li>
+        <li>Generates a client-side quick-search search box for javascript-enabled
+            browsers.</li>
+        <li>Pretty-prints PHP pages from your web browser.</li>
+        <li>Optionally compresses output files.</li>
+    </ul>
+
+    <h3>Requirements:</h3>
+    <ul>
+        <li>Perl 5.6 or later.</li>
+        <li>A web browser - Having javascript enabled provides a nice search box,
+            improves the navigation column and adds tooltip-style popups
+            to classes and functions in the source view, but it's optional
+            &#151; the system is usable in Lynx, if not quite as feature-rich.</li>
+        <li>Some PHP files to cross reference.</li>
+    </ul>
+    <p>
+    That's it!  No special / non-standard perl modules are required and the script
+    is known to work fine under Linux, Windows and OS X and will probably work on other
+    platforms as well.
+    </p>
+    <p>
+    You also don't need a web server - You can run the script locally and point
+    your browser directly at the index.html file - In fact, this is the recommended
+    way to use it as it makes for a very useful and fast programmer's tool.
+    </p>
+
+    <h2><a name="quickstart">Quickstart</a></h2>
+    <ol>
+        <li>Extract the PHPXref archive.</li>
+        <li>Put a copy of your PHP code to cross reference into the source directory
+            or edit phpxref.cfg and edit the SOURCE entry.</li>
+        <li>Customize the phpxref.cfg file as you wish.</li>
+        <li>Run phpxref.pl (or phpxref.bat or phpxref.exe on Windows)</li>
+        <li>Load up the index.html file in the output directory in a browser.</li>
+    </ol>
+    <p>
+    Make sure the INCLUDEPATH setting in the configuration file is correct
+    so that scripts that reference other scripts in the source directory find 
+    each other.  Additionally, if you have require or include statements
+    that use a constant or variable to specify a base directory, specify
+    those in the configuration file too.  Eg. if your code specifies:<br>
+    <ul>
+        <pre>Require(TEMPLATE_DIRECTORY . 'header.php');</pre>
+    </ul>
+    you may want to set 
+    <ul>
+        <pre>TEMPLATE_DIRECTORY=templates/</pre>
+    </ul>
+    in the
+    configuration file (be sure not to miss the trailing slash in the above
+    example!).
+    </p>
+
+    <h2><a name="docs">Documenting your scripts</a></h2>
+    <p>
+    As of version 0.3, PHPXref supports 
+    <a href="http://phpdocu.sourceforge.net/">PHPDocumentor</a> style
+    comments for documenting files, classes and functions (support for the old
+    documentation format is retained but deprecated).  PHPXref isn't
+    intended to be a substitute for projects like phpdoc, but seems to 
+    compliment it fairly well.
+    </p>
+    <p>
+    An example function comment might look like..:
+    <ul>
+        <pre>
+/**
+* Authenticate a user using a username and password
+*
+* A longer description of the function might go here
+* and can span multiple lines.
+* @param string $username
+* @param string $password
+* @tables users, permissions
+* @author Gareth
+*/
+function authuser($username,$password) {
+    // ...
+}
+        </pre>
+    </ul>
+    <h3>Cross referencing database table references</h3>
+    <p>
+    PHPXref can cross reference database table usage in your scripts if you
+    provide it with some hints about which tables you're using and where.  This
+    is needed as the parser doesn't currently know SQL.  Additionally, if you
+    use MySQL, you can have PHPXref go on to fetch the table descriptions
+    directly from the database - Instructions for configuring this are in the
+    config file.  Note that you must have the Perl DBI modules installed to use
+    this feature and the Windows .exe version doesn't include these modules.
+    Thus to use this feature under Windows, you must use the .pl script with a 
+    full install of Perl.
+    </p>
+    <p>
+    Table hints for PHPXref can be provided either by specifying them as part
+    of a file/class/function comment as shown above with the @tables tag.
+    </p>
+
+    <h2><a name="windows">Notes for Windows users</a></h2>
+    <p>
+    Version 0.3 of PHPXref contains some minor updates to help it run under
+    Windows, but as I rarely use Windows I'm sure it has some issues remaining.
+    If you wish to use PHPXref under Windows then you need to have a working
+    installation of Perl.  The easiest way to get this setup is to download
+    the ActivePerl installer from <a href="http://www.activestate.com/">ActiveState</a>
+    and allow it to install into C:\Perl.  If you install it into another location
+    you'll want to edit the phpxref.bat file before running it.
+    </p>
+    <p>
+    If you really don't want to install Perl, a copy of PHPXref compiled into
+    a standalone executable using <a href="http://tinyperl.sourceforge.net/">TinyPerl</a>
+    is available on the <a href="http://phpxref.sourceforge.net/">website</a>.
+    </p>
+
+    <h2><a name="misc">Miscellaneous</a></h2>
+    <h3>Copyright</h3>
+    <p>
+    PHPXref is &copy; Gareth Watts and is licensed under the
+    <a href="COPYING">GNU General Public License v2</a>
+    </p>
+    <h3>Contributions</h3>
+    <p>
+    <ul>
+      <li>Gottfried Szing &lt;goofy@yasd.dhs.org&gt;</li>
+      <li>Public domain icons from the <a href="http://www.apache.org/">Apache web server</a></li>
+      <li>Windows binary produced using <a href="http://tinyperl.sourceforge.net/">TinyPerl</a></li>
+      <li>Javascript explorer tree by <a href="http://www.softcomplex.com/products/tigra_menu_tree/">Softcomplex</a></li>
+    </ul>
+    Bug reports, patches and suggestions are welcome:  Please suggest them via the 
+    <a href="http://sourceforge.net/projects/phpxref/">SourceForge project tracker</a>.
+    </p>
+
+</body>
+</html>

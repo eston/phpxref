@@ -1,0 +1,56 @@
+Upgrading from version 0.6 to 0.7
+    The following files have changed:
+    phpxref.pl or phpxref.exe
+    phpxref.cfg (new variables: CHARSET, LINK_URI and EXPLORE_SOURCE)
+    sample_header.html
+    sample.css
+    phpxref.js
+
+Upgrading from version 0.5 to 0.6:
+    The following files have changed:
+       phpxref.pl or phpxref.exe
+       phpxref.cfg (new variable: NO_TRAD_DOC)
+
+   
+Upgrading from version 0.4.1 to 0.5:
+    The following files have changed:
+       phpxref.pl or phpxref.exe
+       phpxref.js
+       sample.css
+       sample_header.html (1 line added): <style id="hilight" type="text/css"></style>
+       phpxref.cfg
+       php4_functionlist.txt (now includes php5 functions)
+
+     The COOKIE parameter was added to the config file and
+     DOC_TAG entries were added as default values for param, 
+     author and return.
+
+
+Upgrading from version 0.4 to 0.4.1:
+    The following files have changed:
+        phpxref.pl or phpxref.exe
+        phpxref.js
+
+    There's one new line in phpxref.cfg for PRINTSTYLEFILE
+    and a new sample file has been added to support that:
+    sample-print.css
+
+
+Upgrading from version 0.3 to 0.4:
+    Version 0.4 adds some new files:
+        phpxref.js
+        jstree/
+    If you're updating an exisiting installation
+    you can copy these files into it, along with
+    phpxref.pl or phpxref.exe
+
+    Modify your header template to use the new __TITLE__
+    and __PROJECT__ variables (see changelog)
+
+    Update your configuration file to add a PROJECT entry which 
+    should hold the name and version of your project, eg.:
+    PROJECT=Xaraya 0.906
+
+    NOTE: The sample.css file has changed with some new classes; 
+    if you're using a modified version of this file you may want 
+    to check out the changes to it.
